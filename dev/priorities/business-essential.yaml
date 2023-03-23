@@ -1,7 +1,0 @@
-apiVersion: scheduling.k8s.io/v1
-kind: PriorityClass
-metadata:
-  name: business-essential
-value: 2000000
-globalDefault: false
-description: "This priority class is reserved for services that require 99% uptime."
