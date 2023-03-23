@@ -18,3 +18,24 @@ it will be pushing updates to all four clusters as things change.
     kubectl create -f install.yaml
 
 
+### Environments
+
+Currently there are no files however I've created four environments; dev, qa, stage, prod, and in each directory are configuration directories.
+
+    dev
+      configmaps
+      deployments
+      namespaces
+      secrets
+      services
+    qa
+    stage
+    prod
+
+More may be added as time advances.
+
+
+### Projects
+
+I only have one project right now that I'll be using this for, the llamas website. It's a simple single page so should be a good starting point.
+
