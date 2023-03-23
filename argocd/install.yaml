@@ -16117,7 +16117,7 @@ spec:
         - ""
         - --appendonly
         - "no"
-        image: bldr0cuomrepo1.dev.internal.pri:5000/redis:7.0.8-alpine
+        image: bldr0cuomrepo1.dev.internal.pri:5000/redis:v7.0.8-alpine
         imagePullPolicy: Always
         name: redis
         ports:
