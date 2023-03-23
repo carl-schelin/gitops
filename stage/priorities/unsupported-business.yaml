@@ -1,0 +1,7 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: unsupported-business
+value: 500000
+globalDefault: true
+description: "This priority class is reserved for services that have no uptime requirements."
