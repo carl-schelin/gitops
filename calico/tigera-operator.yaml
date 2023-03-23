@@ -18151,8 +18151,8 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: tigera-operator
-          image: quay.io/tigera/operator:v1.29.0
-          imagePullPolicy: IfNotPresent
+          image: bldr0cuomrepo1.dev.internal.pri:5000/operator:v1.29.0
+          imagePullPolicy: Always
           command:
             - operator
           volumeMounts:
