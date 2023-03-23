@@ -10,12 +10,11 @@ For Calico, the two yaml files are installed on every cluster after kubeadm has 
     kubectl create -f tigera-operator.yaml
     kubectl create -f custom-resources.yaml
 
-For Argocd, run the argocd.yaml file to create the namespace, then apply the install.yaml file. This is only installed on the development cluster as 
-it will be pushing updates to all four clusters as things change.
+For Argocd, run the argocd.yaml file to create the namespace, then apply the install.yaml file. Make sure you add the new namespace when running the install.yaml file. This is only installed on the development cluster as it will be pushing updates to all four clusters as things change.
 
     cd argocd
     kubectl create -f argocd.yaml
-    kubectl create -f install.yaml
+    kubectl create -f install.yaml -n argocd
 
 
 ### Environments
