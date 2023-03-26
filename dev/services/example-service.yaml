@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-service
+  namespace: default
+spec:
+  clusterIP: 192.168.101.201
+  selector:
+    run: load-balancer-example
+  ports:
+    - nodePort: 30760
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort
