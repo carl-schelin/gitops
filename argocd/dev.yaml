@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: development
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://lnmt1cuomgitlab1.internal.pri/gitops.git
+    targetRevision: HEAD
+    path: dev
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: llamas
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
