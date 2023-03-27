@@ -62,6 +62,19 @@ Then update the components.yaml file
     cd [environment]/metrics-server
     kubectl create -f components.yaml
 
+Note that the metrics server is set to retrieve certificates via InternalIP,ExternalIP,Hostname (kubelet flags). Since the certs are created with the hostnames and not IPs, it means the metrics server won't start. To fix it, you need to do two things:
+
+Basically add the serverTLSBootstrap: true line to the kubelet-config configmap after the 'kind: KubeletConfiguration' line.
+
+    kubectl edit configmap kubelet-config -n kube-system
+
+Then in the same place on all the servers, in the /var/lib/kubelet/config.yaml file. Then restart kubelet.
+
+When done, get a list of certificate signing requests (csrs) and approve them.
+
+    kubectl get csr
+    kubectl certificate approve [csr name]
+
 
 ### Environments
 
