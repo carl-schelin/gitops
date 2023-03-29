@@ -70,11 +70,54 @@ Basically add the serverTLSBootstrap: true line to the kubelet-config configmap 
 
 Then in the same place on all the servers, in the /var/lib/kubelet/config.yaml file. Then restart kubelet.
 
-When done, get a list of certificate signing requests (csrs) and approve them.
+When done, get a list of certificate signing requests (csrs)
 
-    kubectl get csr
-    kubectl certificate approve [csr name]
+'''
+$ kubectl get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                      REQUESTEDDURATION   CONDITION
+csr-76kdv   8m45s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomknode1.dev.internal.pri   <none>              Pending
+csr-gblwb   12m     kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+csr-hgz6g   8m6s    kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+csr-mzsqd   7m26s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomknode3.dev.internal.pri   <none>              Pending
+csr-nhd9n   13m     kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube1.dev.internal.pri    <none>              Pending
+csr-nr67g   8m59s   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+csr-nzkb9   11m     kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube2.dev.internal.pri    <none>              Pending
+csr-p4n4g   13m     kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube1.dev.internal.pri    <none>              Pending
+csr-rknd8   7m27s   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+csr-sdwwb   7m50s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomknode2.dev.internal.pri   <none>              Pending
+csr-sft7n   8m19s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube3.dev.internal.pri    <none>              Pending
+csr-swjmh   13m     kubernetes.io/kube-apiserver-client-kubelet   system:node:bldr0cuomkube1.dev.internal.pri    <none>              Approved,Issued
+csr-t8hvw   8m33s   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+'''
 
+Approve them:
+
+'''
+for i in `kubectl get csr | grep Pending | awk '{print $1}'`
+do
+  kubectl certificate approve $i
+done
+'''
+
+And verify all are approved.
+
+'''
+$ kubectl get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                      REQUESTEDDURATION   CONDITION
+csr-76kdv   9m24s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomknode1.dev.internal.pri   <none>              Approved,Issued
+csr-gblwb   12m     kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+csr-hgz6g   8m45s   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+csr-mzsqd   8m5s    kubernetes.io/kubelet-serving                 system:node:bldr0cuomknode3.dev.internal.pri   <none>              Approved,Issued
+csr-nhd9n   14m     kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube1.dev.internal.pri    <none>              Approved,Issued
+csr-nr67g   9m38s   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+csr-nzkb9   12m     kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube2.dev.internal.pri    <none>              Approved,Issued
+csr-p4n4g   14m     kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube1.dev.internal.pri    <none>              Approved,Issued
+csr-rknd8   8m6s    kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+csr-sdwwb   8m29s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomknode2.dev.internal.pri   <none>              Approved,Issued
+csr-sft7n   8m58s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube3.dev.internal.pri    <none>              Approved,Issued
+csr-swjmh   14m     kubernetes.io/kube-apiserver-client-kubelet   system:node:bldr0cuomkube1.dev.internal.pri    <none>              Approved,Issued
+csr-t8hvw   9m12s   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
+'''
 
 ### Environments
 
