@@ -7,6 +7,9 @@ Files are checked in so we have consistent installations across all four cluster
 Because we want to load images from the local repositor, you'll need to review the yaml files and download them on the docker server, then push it to the 
 local repos. Also for security reasons, change the Image Download option to Always.
 
+
+### Calico
+
 For Calico, the two yaml files are installed on every cluster after kubeadm has been done and the cluster is fully joined.
 
 First pull the images locally.
@@ -23,6 +26,35 @@ Then update the tigera-operator.yaml file:
     kubectl create -f tigera-operator.yaml
     kubectl create -f custom-resources.yaml
 
+If it's all working well, when checking pods, you should see both the tigera-operator pod and the calico pods.
+
+```
+$ kubectl get pods -A | grep -E "(calico|tigera)"
+calico-apiserver   calico-apiserver-6fd86fcb4b-77tld                         1/1     Running   0             32m
+calico-apiserver   calico-apiserver-6fd86fcb4b-p6bzc                         1/1     Running   0             32m
+calico-system      calico-kube-controllers-dd6c88556-zhg6b                   1/1     Running   0             45m
+calico-system      calico-node-66fkb                                         1/1     Running   0             45m
+calico-system      calico-node-99qs2                                         1/1     Running   0             45m
+calico-system      calico-node-dtzgf                                         1/1     Running   0             45m
+calico-system      calico-node-ksjpr                                         1/1     Running   0             45m
+calico-system      calico-node-lhhrl                                         1/1     Running   0             45m
+calico-system      calico-node-w8nmx                                         1/1     Running   0             45m
+calico-system      calico-typha-69f9d4d5b4-vp7mp                             1/1     Running   0             44m
+calico-system      calico-typha-69f9d4d5b4-xv5tg                             1/1     Running   0             45m
+calico-system      calico-typha-69f9d4d5b4-z65kn                             1/1     Running   0             44m
+calico-system      csi-node-driver-5czsp                                     2/2     Running   0             45m
+calico-system      csi-node-driver-ch746                                     2/2     Running   0             45m
+calico-system      csi-node-driver-gg9f4                                     2/2     Running   0             45m
+calico-system      csi-node-driver-kwbwp                                     2/2     Running   0             45m
+calico-system      csi-node-driver-nh564                                     2/2     Running   0             45m
+calico-system      csi-node-driver-rvfd4                                     2/2     Running   0             45m
+tigera-operator    tigera-operator-7d89d9444-4scfq                           1/1     Running   0             45m
+```
+
+I did have an issue with the pod and service networks which prevented all the calico pods from even showing up
+
+
+### ArgoCD Installation
 
 For Argocd, run the argocd.yaml file to create the namespace, then apply the install.yaml file. Make sure you add the new namespace when running the install.yaml file. This is only installed on the development cluster as it will be pushing updates to all four clusters as things change.
 
@@ -47,6 +79,16 @@ Then update the install.yaml file to replace the above images with the local ima
     kubectl create -f install.yaml -n argocd
 
 
+### nginx-ingress Controller
+
+In order to access applications, we'll need to install an ingress controller. The nginx-ingress controller seems to be the most popular OSS product so we'll be installing that here.
+
+
+
+
+
+### Metrics Server
+
 For the Metrics Server, retrieve the components.yaml file from the matrics-server github account and apply it to all clusters.
 
 Pull the images locally and push them to the local repo server.
@@ -62,13 +104,17 @@ Then update the components.yaml file
     cd [environment]/metrics-server
     kubectl create -f components.yaml
 
-Note that the metrics server is set to retrieve certificates via InternalIP,ExternalIP,Hostname (kubelet flags). Since the certs are created with the hostnames and not IPs, it means the metrics server won't start. To fix it, you need to do two things:
+The metrics server is set to retrieve certificates via InternalIP,ExternalIP,Hostname (kubelet flags). Since the certs are created with the hostnames and not IPs, it means the metrics server won't start. To fix it, you need to do two things:
 
 Basically add the serverTLSBootstrap: true line to the kubelet-config configmap after the 'kind: KubeletConfiguration' line.
 
     kubectl edit configmap kubelet-config -n kube-system
 
 Then in the same place on all the servers, in the /var/lib/kubelet/config.yaml file. Then restart kubelet.
+
+
+Note that the line has been added to the kubeadm-config.yaml file so if building the cluster now, it should have the lines in place already. You'll still need to approve CSRs though.
+
 
 When done, get a list of certificate signing requests (csrs)
 
@@ -118,6 +164,12 @@ csr-sft7n   8m58s   kubernetes.io/kubelet-serving                 system:node:bl
 csr-swjmh   14m     kubernetes.io/kube-apiserver-client-kubelet   system:node:bldr0cuomkube1.dev.internal.pri    <none>              Approved,Issued
 csr-t8hvw   9m12s   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
 ```
+
+Now you can check the products using top.
+
+    kubectl top nodes
+    kubectl top pods [-A|-n [namespace]]
+
 
 ### Environments
 
