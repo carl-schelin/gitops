@@ -72,7 +72,7 @@ Then in the same place on all the servers, in the /var/lib/kubelet/config.yaml f
 
 When done, get a list of certificate signing requests (csrs)
 
-'''
+```
 $ kubectl get csr
 NAME        AGE     SIGNERNAME                                    REQUESTOR                                      REQUESTEDDURATION   CONDITION
 csr-76kdv   8m45s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomknode1.dev.internal.pri   <none>              Pending
@@ -88,20 +88,20 @@ csr-sdwwb   7m50s   kubernetes.io/kubelet-serving                 system:node:bl
 csr-sft7n   8m19s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube3.dev.internal.pri    <none>              Pending
 csr-swjmh   13m     kubernetes.io/kube-apiserver-client-kubelet   system:node:bldr0cuomkube1.dev.internal.pri    <none>              Approved,Issued
 csr-t8hvw   8m33s   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
-'''
+```
 
 Approve them:
 
-'''
+```
 for i in `kubectl get csr | grep Pending | awk '{print $1}'`
 do
   kubectl certificate approve $i
 done
-'''
+```
 
 And verify all are approved.
 
-'''
+```
 $ kubectl get csr
 NAME        AGE     SIGNERNAME                                    REQUESTOR                                      REQUESTEDDURATION   CONDITION
 csr-76kdv   9m24s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomknode1.dev.internal.pri   <none>              Approved,Issued
@@ -117,7 +117,7 @@ csr-sdwwb   8m29s   kubernetes.io/kubelet-serving                 system:node:bl
 csr-sft7n   8m58s   kubernetes.io/kubelet-serving                 system:node:bldr0cuomkube3.dev.internal.pri    <none>              Approved,Issued
 csr-swjmh   14m     kubernetes.io/kube-apiserver-client-kubelet   system:node:bldr0cuomkube1.dev.internal.pri    <none>              Approved,Issued
 csr-t8hvw   9m12s   kubernetes.io/kube-apiserver-client-kubelet   system:bootstrap:21v04z                        <none>              Approved,Issued
-'''
+```
 
 ### Environments
 
