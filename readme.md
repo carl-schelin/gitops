@@ -83,7 +83,56 @@ Then update the install.yaml file to replace the above images with the local ima
 
 In order to access applications, we'll need to install an ingress controller. The nginx-ingress controller seems to be the most popular OSS product so we'll be installing that here.
 
+Bah. Apparently it or kubelet requires Kernel version 4.11 and since podman hasn't caught up with the CNI configuration changes, Red Hat 8 doesn't work either. Looking for another ingress controller.
 
+Error: failed to open /proc/sys/net/ipv4/ip_unprivileged_port_start
+
+This isn't an option until kernel 4.11.
+
+
+### haproxy-ingress Controller
+
+This controller has to be installed using helm. Helm is available on all the tool servers.
+
+    helm install my-release haproxytech/kubernetes-ingress
+
+Once done the containers are up and running.
+
+```
+default            my-release-kubernetes-ingress-786dd9f85-24vpg             1/1     Running   0             8h
+default            my-release-kubernetes-ingress-786dd9f85-f9whm             1/1     Running   0             8h
+```
+
+From the helm output:
+
+The following ingress resource routes traffic to pods that match the following:
+
+* client's Host header: webdemo.com
+* path begins with /
+* service name: web
+
+```
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-ingress
+  namespace: default
+  annotations:
+    ingress.class: "haproxy"
+spec:
+  rules:
+  - host: webdemo.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: web
+          servicePort: 80
+```
+
+In case that you are using multi-ingress controller environment, make sure to use ingress.class annotation and match it
+with helm chart option controller.ingressClass.
 
 
 
