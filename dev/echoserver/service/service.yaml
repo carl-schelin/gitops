@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: echoserver
+  name: echoserver
+  namespace: default
+spec:
+  clusterIP: 10.69.249.118
+  clusterIPs:
+  - 10.69.249.118
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 32356
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: echoserver
+  sessionAffinity: None
+  type: NodePort
