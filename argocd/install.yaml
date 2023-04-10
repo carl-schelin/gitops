@@ -15569,6 +15569,8 @@ metadata:
 ---
 apiVersion: v1
 kind: ConfigMap
+data:
+  secure.insecure: "true"
 metadata:
   labels:
     app.kubernetes.io/name: argocd-cmd-params-cm
