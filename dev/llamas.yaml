@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: http://lnmt1cuomgitlab1.internal.pri/external-unix/gitops.git
+    repoURL: http://lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
     targetRevision: HEAD
     path: dev/llamas/
     directory:
