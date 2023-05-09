@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: git@lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
-    targetRevision: HEAD
+    targetRevision: main
     path: dev/llamas/
     directory:
       recurse: true
