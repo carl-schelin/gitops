@@ -28,8 +28,8 @@ spec:
         name: llamas
         resources:
           limits:
-            cpu: "24m"
-            memory: "24Mi"
+            cpu: "60m"
+            memory: "20Mi"
           requests:
-            cpu: "18m"
-            memory: "18Mi"
+            cpu: "30m"
+            memory: "10Mi"
