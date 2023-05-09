@@ -26,4 +26,10 @@ spec:
       - image: bldr0cuomrepo1.dev.internal.pri:5000/llamas:v1.4.1
         imagePullPolicy: Always
         name: llamas
-        resources: {}
+        resources:
+          limits:
+            cpu: "24m"
+            memory: "24Mi"
+          requests:
+            cpu: "18m"
+            memory: "18Mi"
