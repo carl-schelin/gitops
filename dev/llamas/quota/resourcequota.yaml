@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: llamas-rq
+  namespace: llamas
+spec:
+  hard:
+    limits.cpu: "24"
+    limits.memory: 24Gi
+    requests.cpu: "18"
+    requests.memory: 18Gi
+

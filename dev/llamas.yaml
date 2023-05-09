@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: http://lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
-    targetRevision: master
+    repoURL: git@lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
+    targetRevision: main
     path: dev/llamas/
     directory:
       recurse: true
