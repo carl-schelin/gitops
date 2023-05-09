@@ -5,8 +5,8 @@ metadata:
   namespace: llamas
 spec:
   hard:
-    limits.cpu: "6000m"
+    limits.cpu: "6"
     limits.memory: 3Gi
-    requests.cpu: "900m"
+    requests.cpu: "3"
     requests.memory: 2Gi
 
