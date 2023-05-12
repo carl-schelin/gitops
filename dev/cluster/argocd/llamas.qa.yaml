@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: git@lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
     targetRevision: dev
-    path: dev/llamas/
+    path: qa/llamas/
     directory:
       recurse: true
   destination:
