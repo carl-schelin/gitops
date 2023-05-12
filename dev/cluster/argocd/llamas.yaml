@@ -18,3 +18,11 @@ spec:
     automated:
       prune: false
       selfHeal: false
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    name: llamas
+    namespace: llamas
+    jsonPointers:
+    - /spec/replicas
+
