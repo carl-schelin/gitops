@@ -25,7 +25,6 @@ spec:
       - image: bldr0cuomrepo1.dev.internal.pri:5000/llamas:v1.4.1
         imagePullPolicy: Always
         name: llamas
-        priorityClassName: business-essential
         resources:
           limits:
             cpu: "40m"
@@ -33,3 +32,4 @@ spec:
           requests:
             cpu: "30m"
             memory: "20Mi"
+      priorityClassName: business-essential
