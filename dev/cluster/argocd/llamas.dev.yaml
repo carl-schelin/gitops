@@ -19,10 +19,10 @@ spec:
       prune: false
       selfHeal: false
   ignoreDifferences:
-  - group: apps
-    kind: Deployment
-    name: llamas
-    namespace: llamas
-    jsonPointers:
-    - /spec/replicas
+    - group: apps
+      kind: Deployment
+      name: llamas
+      namespace: llamas
+      jqPathExpressions:
+        - .spec.template.spec.replicas
 
