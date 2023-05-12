@@ -4,7 +4,7 @@ metadata:
   name: llamas-qa
   namespace: argocd
 spec:
-  project: default
+  project: llamas
   source:
     repoURL: git@lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
     targetRevision: dev
