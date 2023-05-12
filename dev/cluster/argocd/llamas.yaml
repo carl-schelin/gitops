@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: llamas
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: Project to install the llamas band website
+  destinations:
+  - namespace: 'llamas'
+    server: https://kubernetes.default.svc
+  - namespace: 'llamas'
+    server: https://cabo0cuomvip1.qa.internal.pri:8443
+  sourceRepos:
+  - git@lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
