@@ -6,7 +6,6 @@ metadata:
   name: llamas
   namespace: llamas
 spec:
-  replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -26,6 +25,7 @@ spec:
       - image: bldr0cuomrepo1.dev.internal.pri:5000/llamas:v1.4.1
         imagePullPolicy: Always
         name: llamas
+        priorityClassName: business-essential
         resources:
           limits:
             cpu: "40m"
