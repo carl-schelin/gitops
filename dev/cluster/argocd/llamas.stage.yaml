@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: llamas-qa
+  name: llamas-stage
   namespace: argocd
 spec:
   project: llamas
   source:
     repoURL: git@lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
     targetRevision: main
-    path: qa/llamas/
+    path: stage/llamas/
     directory:
       recurse: true
   destination:
