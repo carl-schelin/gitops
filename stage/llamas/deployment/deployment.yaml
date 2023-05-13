@@ -21,7 +21,7 @@ spec:
         app: llamas
     spec:
       containers:
-      - image: bldr0cuomrepo1.dev.internal.pri:5000/llamas:v1.3
+      - image: bldr0cuomrepo1.dev.internal.pri:5000/llamas:v1.2
         imagePullPolicy: Always
         name: llamas
         priorityClassName: business-essential
