@@ -12,6 +12,6 @@ spec:
   - namespace: 'llamas'
     server: https://kubernetes.default.svc
   - namespace: 'llamas'
-    server: https://cabo0cuomvip1.qa.internal.pri:8443
+    server: https://cabo0cuomvip1.qa.internal.pri:6443
   sourceRepos:
   - git@lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
