@@ -12,7 +12,7 @@ spec:
     directory:
       recurse: true
   destination:
-    server: https://cabo0cuomvip1.qa.internal.pri:6443
+    server: https://lnmt1cuomvip1.internal.pri:6443
     namespace: llamas
   syncPolicy:
     automated:
