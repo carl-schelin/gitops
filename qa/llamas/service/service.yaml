@@ -7,7 +7,7 @@ metadata:
   namespace: llamas
 spec:
   ports:
-  - nodePort: 31201
+  - nodePort: 31102
     port: 80
     protocol: TCP
     targetPort: 80
