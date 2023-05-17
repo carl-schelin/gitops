@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: llamas-stage
+  name: llamas-blue-stage
   namespace: argocd
 spec:
   project: llamas-blue
