@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: llamas
+  namespace: llamas-green
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+spec:
+  rules:
+  - host: llamas-green.stage.internal.pri
+    http:
+      paths:
+      - backend:
+          service:
+            name: llamas
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - llamas-green.stage.internal.pri
