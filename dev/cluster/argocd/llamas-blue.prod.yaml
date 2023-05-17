@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: llamas-prod
+  namespace: argocd
+spec:
+  project: llamas-blue
+  source:
+    repoURL: git@lnmt1cuomgitlab.internal.pri/external-unix/gitops.git
+    targetRevision: main
+    path: prod/llamas-blue/
+    directory:
+      recurse: true
+  destination:
+    server: https://lnmt1cuomvip1.internal.pri:6443
+    namespace: llamas-blue
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: llamas
+      namespace: llamas-blue
+      jqPathExpressions:
+        - .spec.template.spec.replicas
+
