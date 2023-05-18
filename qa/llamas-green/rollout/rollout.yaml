@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  labels:
+    app: llamas
+  name: llamas
+  namespace: llamas-green
+spec:
+  selector:
+    matchLabels:
+      app: llamas-rollout
+  strategy:
+    blueGreen:
+      activeService: llamas
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: llamas-rollout
+    spec:
+      containers:
+      - image: bldr0cuomrepo1.dev.internal.pri:5000/llamas:v1.3
+        imagePullPolicy: Always
+        name: llamas
+        resources:
+          limits:
+            cpu: "40m"
+            memory: "30Mi"
+          requests:
+            cpu: "30m"
+            memory: "20Mi"
+      priorityClassName: business-essential
+
