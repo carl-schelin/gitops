@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   labels:
-    app: llamas
+    app: llamas-rollout
   name: llamas
   namespace: llamas-green
 spec:
