@@ -2,14 +2,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   labels:
-    app: llamas-rollout
+    app: llamas
   name: llamas
   namespace: llamas-green
 spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: llamas-rollout
+      app: llamas
   strategy:
     blueGreen:
       activeService: llamas
@@ -19,7 +19,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: llamas-rollout
+        app: llamas
     spec:
       containers:
       - image: bldr0cuomrepo1.dev.internal.pri:5000/llamas:v1.4.1
