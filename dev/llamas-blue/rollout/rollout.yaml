@@ -9,17 +9,16 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: llamas-rollout
+      app: llamas
   strategy:
     blueGreen:
       activeService: llamas
       maxUnavailable: 25%
-    type: RollingUpdate
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: llamas-rollout
+        app: llamas
     spec:
       containers:
       - image: bldr0cuomrepo1.dev.internal.pri:5000/llamas:v1.4.1
